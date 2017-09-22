@@ -24,8 +24,8 @@ namespace Bibliothèque.Views
         public MFilm()
         {
             InitializeComponent();
-            AccesClients dao = new AccesClients();
-            lvFilms.ItemsSource = dao.readTxtFilms();
+            //AccesClients dao = new AccesClients();
+            //lvFilms.ItemsSource = dao.readTxtFilms();     //uncomment this to reas from txtfile
         }
         
     }

@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Bibliothèque.Views"
+             xmlns:data="clr-namespace:Bibliothèque.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+    <UserControl.DataContext>
+        <data:AccesClients></data:AccesClients>
+    </UserControl.DataContext>
+    <Grid Background="#FF747474">
+        <DataGrid x:Name="dgLivres" ItemsSource="{Binding listeLivres}" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="249" Margin="0,51,0,0" VerticalAlignment="Top" Width="300">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding id_livre}"/>
+                <DataGridTextColumn Header="Titre" Binding="{Binding titre}"/>
+                <DataGridTextColumn Header="Id Genre" Binding="{Binding id_genre}"/>
+                <DataGridTextColumn Header="Editeur" Binding="{Binding editeur}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </UserControl>

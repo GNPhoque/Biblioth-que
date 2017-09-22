@@ -1,0 +1,2 @@
+1|titrea|1|editeura
+2|titreb|1|editeurb

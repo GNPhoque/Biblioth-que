@@ -50,7 +50,6 @@ namespace Bibliothèque.ViewModel
 
         public List<Films> readTxtFilms()
         {
-            List<string> splitstr = new List<string>();
             List<Films> lFilms = new List<Films>();
             string[] s = File.ReadAllLines(@".\..\..\Resources\films.txt");
             foreach (var item in s)
