@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bibliothèque.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,26 @@ namespace Bibliothèque
         public MainWindow()
         {
             InitializeComponent();
+        }
+        
+        private void btnReservation_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new Reservation();
+        }
+
+        private void btnClients_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new MClient();
+        }
+
+        private void btnLivres_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new MLivres();
+        }
+
+        private void btnFilms_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new MFilm();
         }
     }
 }

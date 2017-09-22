@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bibliothèque"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="300" Width="600">
+    <Grid Background="#FFA4A4A4">
+        <Menu HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="600">
+            <Button x:Name="btnReservation" Content="Reservation" Click="btnReservation_Click"/>
+            <Button x:Name="btnClients" Content="Clients" Click="btnClients_Click"/>
+            <Button x:Name="btnLivres" Content="Livres" Click="btnLivres_Click"/>
+            <Button x:Name="btnFilms" Content="Films" Click="btnFilms_Click"/>
+        </Menu>
+        <ContentControl x:Name="contentControl" Content="" HorizontalAlignment="Left" Margin="0,22,0,0" VerticalAlignment="Top" Height="247" Width="600"/>
     </Grid>
 </Window>

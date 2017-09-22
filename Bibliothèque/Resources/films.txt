@@ -1,0 +1,2 @@
+1|titrea|1|acteura
+2|titreb|1|acteurb

@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BibliothèqueModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bibliothèque">
+          <Key>
+            <PropertyRef Name="id_bibli" />
+          </Key>
+          <Property Name="id_bibli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adresse_bibli" Type="varchar" MaxLength="30" />
+          <Property Name="tel_bibli" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="30" />
+          <Property Name="prenom" Type="varchar" MaxLength="30" />
+          <Property Name="adresse" Type="varchar" MaxLength="30" />
+          <Property Name="telephone" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="EmpruntsFilms">
+          <Key>
+            <PropertyRef Name="id_emprunt_f" />
+          </Key>
+          <Property Name="id_emprunt_f" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" />
+          <Property Name="id_film" Type="int" />
+          <Property Name="date_emprunt_f" Type="date" Nullable="false" />
+          <Property Name="date_retour_f" Type="date" />
+        </EntityType>
+        <EntityType Name="EmpruntsLivres">
+          <Key>
+            <PropertyRef Name="id_emprunt_l" />
+          </Key>
+          <Property Name="id_emprunt_l" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_client" Type="int" />
+          <Property Name="id_livre" Type="int" />
+          <Property Name="date_emprunt_l" Type="date" Nullable="false" />
+          <Property Name="date_retour_l" Type="date" />
+        </EntityType>
+        <EntityType Name="Films">
+          <Key>
+            <PropertyRef Name="id_film" />
+          </Key>
+          <Property Name="id_film" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_genre" Type="int" />
+          <Property Name="acteur_p" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="id_genre" />
+          </Key>
+          <Property Name="id_genre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lib_genre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Livres">
+          <Key>
+            <PropertyRef Name="id_livre" />
+          </Key>
+          <Property Name="id_livre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_genre" Type="int" />
+          <Property Name="resum_livre" Type="varchar" MaxLength="200" />
+          <Property Name="editeur" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK__EmpruntsF__id_cl__30F848ED">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="EmpruntsFilms" Type="Self.EmpruntsFilms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="EmpruntsFilms">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpruntsF__id_fi__31EC6D26">
+          <End Role="Films" Type="Self.Films" Multiplicity="0..1" />
+          <End Role="EmpruntsFilms" Type="Self.EmpruntsFilms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Films">
+              <PropertyRef Name="id_film" />
+            </Principal>
+            <Dependent Role="EmpruntsFilms">
+              <PropertyRef Name="id_film" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpruntsL__id_cl__2D27B809">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="EmpruntsLivres" Type="Self.EmpruntsLivres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="EmpruntsLivres">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpruntsL__id_li__2E1BDC42">
+          <End Role="Livres" Type="Self.Livres" Multiplicity="0..1" />
+          <End Role="EmpruntsLivres" Type="Self.EmpruntsLivres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Livres">
+              <PropertyRef Name="id_livre" />
+            </Principal>
+            <Dependent Role="EmpruntsLivres">
+              <PropertyRef Name="id_livre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Films__id_genre__276EDEB3">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Films" Type="Self.Films" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="id_genre" />
+            </Principal>
+            <Dependent Role="Films">
+              <PropertyRef Name="id_genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Livres__id_genre__2A4B4B5E">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Livres" Type="Self.Livres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="id_genre" />
+            </Principal>
+            <Dependent Role="Livres">
+              <PropertyRef Name="id_genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BibliothèqueModelStoreContainer">
+          <EntitySet Name="Bibliothèque" EntityType="Self.Bibliothèque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpruntsFilms" EntityType="Self.EmpruntsFilms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpruntsLivres" EntityType="Self.EmpruntsLivres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Films" EntityType="Self.Films" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Livres" EntityType="Self.Livres" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__EmpruntsF__id_cl__30F848ED" Association="Self.FK__EmpruntsF__id_cl__30F848ED">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="EmpruntsFilms" EntitySet="EmpruntsFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpruntsF__id_fi__31EC6D26" Association="Self.FK__EmpruntsF__id_fi__31EC6D26">
+            <End Role="Films" EntitySet="Films" />
+            <End Role="EmpruntsFilms" EntitySet="EmpruntsFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpruntsL__id_cl__2D27B809" Association="Self.FK__EmpruntsL__id_cl__2D27B809">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="EmpruntsLivres" EntitySet="EmpruntsLivres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpruntsL__id_li__2E1BDC42" Association="Self.FK__EmpruntsL__id_li__2E1BDC42">
+            <End Role="Livres" EntitySet="Livres" />
+            <End Role="EmpruntsLivres" EntitySet="EmpruntsLivres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Films__id_genre__276EDEB3" Association="Self.FK__Films__id_genre__276EDEB3">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Films" EntitySet="Films" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Livres__id_genre__2A4B4B5E" Association="Self.FK__Livres__id_genre__2A4B4B5E">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Livres" EntitySet="Livres" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BibliothèqueModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bibliothèque">
+          <Key>
+            <PropertyRef Name="id_bibli" />
+          </Key>
+          <Property Name="id_bibli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adresse_bibli" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="tel_bibli" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="adresse" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="EmpruntsFilms" Relationship="Self.FK__EmpruntsF__id_cl__30F848ED" FromRole="Clients" ToRole="EmpruntsFilms" />
+          <NavigationProperty Name="EmpruntsLivres" Relationship="Self.FK__EmpruntsL__id_cl__2D27B809" FromRole="Clients" ToRole="EmpruntsLivres" />
+        </EntityType>
+        <EntityType Name="EmpruntsFilms">
+          <Key>
+            <PropertyRef Name="id_emprunt_f" />
+          </Key>
+          <Property Name="id_emprunt_f" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" />
+          <Property Name="id_film" Type="Int32" />
+          <Property Name="date_emprunt_f" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_retour_f" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__EmpruntsF__id_cl__30F848ED" FromRole="EmpruntsFilms" ToRole="Clients" />
+          <NavigationProperty Name="Films" Relationship="Self.FK__EmpruntsF__id_fi__31EC6D26" FromRole="EmpruntsFilms" ToRole="Films" />
+        </EntityType>
+        <EntityType Name="EmpruntsLivres">
+          <Key>
+            <PropertyRef Name="id_emprunt_l" />
+          </Key>
+          <Property Name="id_emprunt_l" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_client" Type="Int32" />
+          <Property Name="id_livre" Type="Int32" />
+          <Property Name="date_emprunt_l" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_retour_l" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__EmpruntsL__id_cl__2D27B809" FromRole="EmpruntsLivres" ToRole="Clients" />
+          <NavigationProperty Name="Livres" Relationship="Self.FK__EmpruntsL__id_li__2E1BDC42" FromRole="EmpruntsLivres" ToRole="Livres" />
+        </EntityType>
+        <EntityType Name="Films">
+          <Key>
+            <PropertyRef Name="id_film" />
+          </Key>
+          <Property Name="id_film" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_genre" Type="Int32" />
+          <Property Name="acteur_p" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmpruntsFilms" Relationship="Self.FK__EmpruntsF__id_fi__31EC6D26" FromRole="Films" ToRole="EmpruntsFilms" />
+          <NavigationProperty Name="Genres" Relationship="Self.FK__Films__id_genre__276EDEB3" FromRole="Films" ToRole="Genres" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="id_genre" />
+          </Key>
+          <Property Name="id_genre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lib_genre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Films" Relationship="Self.FK__Films__id_genre__276EDEB3" FromRole="Genres" ToRole="Films" />
+          <NavigationProperty Name="Livres" Relationship="Self.FK__Livres__id_genre__2A4B4B5E" FromRole="Genres" ToRole="Livres" />
+        </EntityType>
+        <EntityType Name="Livres">
+          <Key>
+            <PropertyRef Name="id_livre" />
+          </Key>
+          <Property Name="id_livre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_genre" Type="Int32" />
+          <Property Name="resum_livre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="editeur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmpruntsLivres" Relationship="Self.FK__EmpruntsL__id_li__2E1BDC42" FromRole="Livres" ToRole="EmpruntsLivres" />
+          <NavigationProperty Name="Genres" Relationship="Self.FK__Livres__id_genre__2A4B4B5E" FromRole="Livres" ToRole="Genres" />
+        </EntityType>
+        <Association Name="FK__EmpruntsF__id_cl__30F848ED">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="EmpruntsFilms" Type="Self.EmpruntsFilms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="EmpruntsFilms">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpruntsL__id_cl__2D27B809">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="EmpruntsLivres" Type="Self.EmpruntsLivres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="EmpruntsLivres">
+              <PropertyRef Name="id_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpruntsF__id_fi__31EC6D26">
+          <End Role="Films" Type="Self.Films" Multiplicity="0..1" />
+          <End Role="EmpruntsFilms" Type="Self.EmpruntsFilms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Films">
+              <PropertyRef Name="id_film" />
+            </Principal>
+            <Dependent Role="EmpruntsFilms">
+              <PropertyRef Name="id_film" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmpruntsL__id_li__2E1BDC42">
+          <End Role="Livres" Type="Self.Livres" Multiplicity="0..1" />
+          <End Role="EmpruntsLivres" Type="Self.EmpruntsLivres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Livres">
+              <PropertyRef Name="id_livre" />
+            </Principal>
+            <Dependent Role="EmpruntsLivres">
+              <PropertyRef Name="id_livre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Films__id_genre__276EDEB3">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Films" Type="Self.Films" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="id_genre" />
+            </Principal>
+            <Dependent Role="Films">
+              <PropertyRef Name="id_genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Livres__id_genre__2A4B4B5E">
+          <End Role="Genres" Type="Self.Genres" Multiplicity="0..1" />
+          <End Role="Livres" Type="Self.Livres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="id_genre" />
+            </Principal>
+            <Dependent Role="Livres">
+              <PropertyRef Name="id_genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BibliothèqueEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bibliothèque" EntityType="Self.Bibliothèque" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="EmpruntsFilms" EntityType="Self.EmpruntsFilms" />
+          <EntitySet Name="EmpruntsLivres" EntityType="Self.EmpruntsLivres" />
+          <EntitySet Name="Films" EntityType="Self.Films" />
+          <EntitySet Name="Genres" EntityType="Self.Genres" />
+          <EntitySet Name="Livres" EntityType="Self.Livres" />
+          <AssociationSet Name="FK__EmpruntsF__id_cl__30F848ED" Association="Self.FK__EmpruntsF__id_cl__30F848ED">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="EmpruntsFilms" EntitySet="EmpruntsFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpruntsL__id_cl__2D27B809" Association="Self.FK__EmpruntsL__id_cl__2D27B809">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="EmpruntsLivres" EntitySet="EmpruntsLivres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpruntsF__id_fi__31EC6D26" Association="Self.FK__EmpruntsF__id_fi__31EC6D26">
+            <End Role="Films" EntitySet="Films" />
+            <End Role="EmpruntsFilms" EntitySet="EmpruntsFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmpruntsL__id_li__2E1BDC42" Association="Self.FK__EmpruntsL__id_li__2E1BDC42">
+            <End Role="Livres" EntitySet="Livres" />
+            <End Role="EmpruntsLivres" EntitySet="EmpruntsLivres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Films__id_genre__276EDEB3" Association="Self.FK__Films__id_genre__276EDEB3">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Films" EntitySet="Films" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Livres__id_genre__2A4B4B5E" Association="Self.FK__Livres__id_genre__2A4B4B5E">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Livres" EntitySet="Livres" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BibliothèqueModelStoreContainer" CdmEntityContainer="BibliothèqueEntities">
+          <EntitySetMapping Name="Bibliothèque">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Bibliothèque">
+              <MappingFragment StoreEntitySet="Bibliothèque">
+                <ScalarProperty Name="id_bibli" ColumnName="id_bibli" />
+                <ScalarProperty Name="adresse_bibli" ColumnName="adresse_bibli" />
+                <ScalarProperty Name="tel_bibli" ColumnName="tel_bibli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpruntsFilms">
+            <EntityTypeMapping TypeName="BibliothèqueModel.EmpruntsFilms">
+              <MappingFragment StoreEntitySet="EmpruntsFilms">
+                <ScalarProperty Name="id_emprunt_f" ColumnName="id_emprunt_f" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_film" ColumnName="id_film" />
+                <ScalarProperty Name="date_emprunt_f" ColumnName="date_emprunt_f" />
+                <ScalarProperty Name="date_retour_f" ColumnName="date_retour_f" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpruntsLivres">
+            <EntityTypeMapping TypeName="BibliothèqueModel.EmpruntsLivres">
+              <MappingFragment StoreEntitySet="EmpruntsLivres">
+                <ScalarProperty Name="id_emprunt_l" ColumnName="id_emprunt_l" />
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="id_livre" ColumnName="id_livre" />
+                <ScalarProperty Name="date_emprunt_l" ColumnName="date_emprunt_l" />
+                <ScalarProperty Name="date_retour_l" ColumnName="date_retour_l" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Films">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Films">
+              <MappingFragment StoreEntitySet="Films">
+                <ScalarProperty Name="id_film" ColumnName="id_film" />
+                <ScalarProperty Name="titre" ColumnName="titre" />
+                <ScalarProperty Name="id_genre" ColumnName="id_genre" />
+                <ScalarProperty Name="acteur_p" ColumnName="acteur_p" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Genres">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="id_genre" ColumnName="id_genre" />
+                <ScalarProperty Name="lib_genre" ColumnName="lib_genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Livres">
+            <EntityTypeMapping TypeName="BibliothèqueModel.Livres">
+              <MappingFragment StoreEntitySet="Livres">
+                <ScalarProperty Name="id_livre" ColumnName="id_livre" />
+                <ScalarProperty Name="titre" ColumnName="titre" />
+                <ScalarProperty Name="id_genre" ColumnName="id_genre" />
+                <ScalarProperty Name="resum_livre" ColumnName="resum_livre" />
+                <ScalarProperty Name="editeur" ColumnName="editeur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

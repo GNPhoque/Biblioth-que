@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2ee1bca8c16a4f4fa5e8c4c1b0b76b35" Name="Diagram1">
+        <EntityTypeShape EntityType="BibliothèqueModel.Bibliothèque" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BibliothèqueModel.Clients" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BibliothèqueModel.EmpruntsFilms" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BibliothèqueModel.EmpruntsLivres" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BibliothèqueModel.Films" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BibliothèqueModel.Genres" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="BibliothèqueModel.Livres" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="BibliothèqueModel.FK__EmpruntsF__id_cl__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="BibliothèqueModel.FK__EmpruntsL__id_cl__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="BibliothèqueModel.FK__EmpruntsF__id_fi__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="BibliothèqueModel.FK__EmpruntsL__id_li__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="BibliothèqueModel.FK__Films__id_genre__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="BibliothèqueModel.FK__Livres__id_genre__2A4B4B5E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
